@@ -1195,11 +1195,8 @@ const LEAD = (() => {
     gravar(ID_KEY, sid);
   }
 
-  /* Teste #4, aberto em 25/08/2026: a variante B pergunta o GÊNERO primeiro
-     e a meta de peso em seguida (ver a troca logo após este bloco). Os
-     checkouts por variante do teste #3 ficam — viraram infraestrutura para
-     atribuir venda por variante no checkout. Chave nova = sorteio novo para todo
-     mundo, conforme a regra acima. Quem volta continua na mesma variante. */
+  /* A variante continua sendo preservada para atribuição dos checkouts e das
+     vendas. A ordem das perguntas, porém, é única para todos os visitantes. */
   let variant = ler(AB_KEY);
 
   /* ?ab=A ou ?ab=B força a variante e fixa a escolha, para conferir as duas
@@ -1245,27 +1242,10 @@ const LEAD = (() => {
   };
 })();
 
-/* ------------------------------------------------- Teste #4: ordem de B --- */
-/* A ordem CANÔNICA (a de lib/steps.js, que indexa a retenção no servidor) é
-   capturada ANTES da troca — o preview a usa para conferir a sincronia com o
-   backend sem acusar a variante B de estar "errada". */
+/* ----------------------------------------------- Ordem canônica do quiz --- */
+/* A mesma ordem é usada por todas as variantes para que o funil sempre abra
+   na primeira pergunta e a retenção permaneça coerente. */
 const ORDEM_CANONICA = FUNNEL.map(s => s.id).join(',');
-
-/* Na variante B, o gênero pergunta primeiro e a meta de peso vem em seguida.
-   A troca acontece aqui, antes de qualquer render: router, history e a
-   numeração "Etapa X de 16" (NUMBERED, também trocado) já nascem coerentes.
-
-   O ÍNDICE DO SERVIDOR NÃO MUDA — lib/steps.js continua meta-peso=0 e
-   genero=1 para as duas variantes. Consequência conhecida: em B, quem
-   abandona na 1ª tela (gênero, índice 1) conta como tendo alcançado também
-   meta-peso (índice 0), então as DUAS PRIMEIRAS linhas da retenção não
-   separam a queda entre as telas 1 e 2 de B. A leitura limpa da retenção
-   começa na Idade; a decisão do teste é por clique/venda, não por essas
-   duas linhas. */
-if (LEAD.variant === 'B') {
-  [FUNNEL[0], FUNNEL[1]] = [FUNNEL[1], FUNNEL[0]];
-  [NUMBERED[0], NUMBERED[1]] = [NUMBERED[1], NUMBERED[0]];
-}
 
 /* ------------------------------------------------------------------ Jornada */
 /* Complementa a analítica do lado do cliente: guarda os tempos de cada etapa
