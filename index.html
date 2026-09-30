@@ -1300,16 +1300,12 @@ function journeyParams() {
 }
 
 /* `base` é obrigatório: cada cartão de oferta tem o seu link
-   (CONFIG.ofertasA / CONFIG.ofertasB). O perfil do lead vai igual em todos.
-   Esquecer a base lança TypeError na hora — melhor que mandar tráfego para
-   um link morto em silêncio. */
+   (CONFIG.ofertasA / CONFIG.ofertasB). O checkout recebe apenas o `sck`,
+   usado pela atribuição do GTM. Nome, respostas do quiz e UTMs individuais
+   ficam fora da URL para manter o link limpo. */
 function checkoutUrl(base) {
   const url = new URL(base);
-  for (const [k, v] of Object.entries(utms)) url.searchParams.set(k, v);
-  if (state.nome) url.searchParams.set('name', state.nome);
-  for (const [k, v] of Object.entries(journeyParams())) {
-    if (v !== '' && v != null) url.searchParams.set(k, v);
-  }
+  if (utms.sck) url.searchParams.set('sck', utms.sck);
   return url.toString();
 }
 
