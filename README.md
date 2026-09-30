@@ -6,6 +6,12 @@ Landing page estática do Método Chia, publicada via GitHub Pages.
 
 `metodochia.educarei.com`
 
+## Rotas
+
+- Página principal: `/`
+- Upsell 1 — Gummy: `/upsell-1-gummy/`
+- Upsell 2 — Calistenia: `/upsell-2-calistenia/`
+
 ## Desenvolvimento local
 
 Sirva a pasta com qualquer servidor HTTP estático. Por exemplo:
