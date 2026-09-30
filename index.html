@@ -1299,14 +1299,12 @@ function journeyParams() {
   };
 }
 
-/* `base` é obrigatório: cada cartão de oferta tem o seu link
-   (CONFIG.ofertasA / CONFIG.ofertasB). O checkout recebe apenas o `sck`,
-   usado pela atribuição do GTM. Nome, respostas do quiz e UTMs individuais
-   ficam fora da URL para manter o link limpo. */
+/* `base` é obrigatório: cada cartão de oferta tem o seu link limpo
+   (CONFIG.ofertasA / CONFIG.ofertasB). O SDK carregado pelo GTM é responsável
+   por gerar e anexar o `sck` dinamicamente no clique. O front não cria nem
+   fixa esse identificador. */
 function checkoutUrl(base) {
-  const url = new URL(base);
-  if (utms.sck) url.searchParams.set('sck', utms.sck);
-  return url.toString();
+  return new URL(base).toString();
 }
 
 /* ------------------------------------------------------------------ Pixel */
