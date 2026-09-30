@@ -9,8 +9,8 @@ Landing page estática do Método Chia, publicada via GitHub Pages.
 ## Rotas
 
 - Página principal: `/`
-- Upsell 1 — Gummy: `/upsell-1-gummy/`
-- Upsell 2 — Calistenia: `/upsell-2-calistenia/`
+- Gummy: `/gummy/`
+- Calistenia: `/calistenia/`
 
 ## Desenvolvimento local
 
